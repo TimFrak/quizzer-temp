@@ -54,10 +54,40 @@ quizRounds: number
 </tr>
 </table>
 
-
 ### Bootstrap
 
 ### Express
+
+Wij hadden als team besloten om express te gebruiken om verschillende resource based routes aan te maken. Deze verschillende resource based routes worden hieronder in het kort beschreven:
+
+`app.get('/')` toont de homepage en hier krijg je de keuze om als team te spelen of om een quiz te starten
+
+##### Quizmaster
+
+`app.get('/quizmasters')` toont het scherm voor de quizmaster
+
+`app.get('/quizmasters/categories')` haalt alle categorien op uit de database
+
+`app.post('/quizmaster/categories/questions')` op basis van de drie geselecteerde categorien worden er 12 vragen uit de database gehaald
+
+`app.post('/quizmasters')` verstuurt het wachtwoord en maakt een nieuwe quiz aan
+
+
+##### Teams
+
+`app.get('/teams')` toont het scherm voor de teams
+
+`app.post('/teams')` voegt een team toe aan de mongoDB database als deze nog niet bestaat
+
+`app.put('/teams/approval')` wordt door de quizmaster gebruikt om een team goed of fout te keuren
+
+
+##### Scoreboard
+
+`app.post('/scoreboards/rounds')` post het aantal gespeelde rondes nadat de quiz afgelopen is.
+
+`app.post('/scoreboards/scores')` post de scores die teams hebben behaald wanneer de quiz stopt
+
 
 ### Node.js
 
