@@ -175,3 +175,15 @@ We hebben React toegepast om de applicatie zo vloeiend mogelijk te laten lopen, 
 ### Routing
 
 ### Sessions
+
+##### Quizmaster
+
+De quizmaster houd bij in de session hoeveel teams er al een vraag hebben beantwoord.!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+##### Teams
+
+in de session van een team wordt de team naam opgeslagen en of een vraag al is beantwoord(mischien nog niet zeker)
+
+##### Scoreboard
+
+Als eerste zijn wij van plan om in de session op te slaan, hoeveel rondes er al zijn gespeeld en het aantal beantwoorde vragen in de ronde\. Verder wordt het aantal punter per team nog opgeslagen in een session en hoeveel vragen een team correct heeft beantwoord in een ronde.
