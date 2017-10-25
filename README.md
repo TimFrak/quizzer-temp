@@ -16,6 +16,12 @@ The Quizzer is a een web applicatie die gebruikt kan worden in cafe's, sportkant
 
 ## Mock-ups
 
+### Team-app
+
+* Veld teamnaam
+
+* Vraag invullen, antwoord geven
+
 ### Quizmaster
 
 * Start de Quizz Night en opent het voor teams.
