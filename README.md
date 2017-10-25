@@ -93,6 +93,7 @@ _id: Objectid:
 quizPass: {Type:String,required: true},
 Teams: {Type:[Schema.Types.ObjectId],required: true},
 quizRounds: {Type:Number,required: true}
+Isfinished: {Type:Boolean, required: true}
 }
 ```
 
