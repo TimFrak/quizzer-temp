@@ -18,26 +18,39 @@ The Quizzer is a een web applicatie die gebruikt kan worden in cafe's, sportkant
 
 ### Quizmaster
 
-Start de Quizz Night en opent het voor teams.
+* Start de Quizz Night en opent het voor teams.
 ![Mockup quizmaster 1](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/1.PNG)
 
-Kan een team keuren (goedkeuren / rejecten)
+* Kan een team keuren (goedkeuren / rejecten)
 ![Mockup quizmaster 2](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/2.PNG)
 
-3 categoriën selecteren, worden twaalf vragen uit gekozen
+* 3 categoriën selecteren, worden twaalf vragen uit gekozen
 ![Mockup quizmaster 3](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/3.PNG)
 
-“Start” knop dat de vraag start en zichtbaar maakt op het scoreboard en de team app
+* “Start” knop dat de vraag start en zichtbaar maakt op het scoreboard en de team app
 ![Mockup quizmaster 4](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/4.PNG)
 
-Kan de volgende vraag kiezen ( nieuwe vraag kiezen )
+* Kan de volgende vraag kiezen ( nieuwe vraag kiezen )
 ![Mockup quizmaster 5](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/5.PNG)
 
-Antwoord lezen en goedkeuren, afkeuren
+* Antwoord lezen en goedkeuren, afkeuren
 ![Mockup quizmaster 6](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/6.PNG)
 
-Nog een keer spelen knop
+* Nog een keer spelen knop
 ![Mockup quizmaster 7](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/7.PNG)
+
+### Scoreboard app
+
+* laat zien hoeveel rondes zijn gespeeld en hoeveel vragen er in de ronde zaten
+* De team namen met hun scores in "Round points" en de hoeveelheid vragen ze correct hebben beantwoord.
+* Round points worden toegewezen op deze manier: Na iedere ronden van twaalf vragen krijgt het team dat de meeste vragen goed beantwoord heeft, 4 Round Points. Het volgende beste team krijgt 2 Round points en het derde team krijgt 1 Round point. Alle andere teams krijgen 0.1 round points
+* Wanneer een vraag nog bezig(nog wordt beantwoord door de teams) is wordt de volgende informatie getoond: De vraag, de categorie van de vraag en welke teams die het antwoord op de vraag hebben ingevuld maar nog niet hebben gesubmit.
+
+![Mockup scoreboard 1](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/Scoreboard%20part%201.PNG)
+
+* Zodra een antwoord is goedgekeurd of afgewezen, worden alle vragen getoond van de teams en wanneer goedgekeurd of afgewezen word de score bijgewerkt.
+
+![Mockup scoreboard 2](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/Scoreboard%20part%202.PNG)
 
 ## Technieken
 
