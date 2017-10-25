@@ -19,8 +19,10 @@ The Quizzer is a een web applicatie die gebruikt kan worden in cafe's, sportkant
 ### Team-app
 
 * Veld teamnaam
+![Mockup team-app 1](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/991.PNG)
 
 * Vraag invullen, antwoord geven
+![Mockup team-app 2](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/992.PNG)
 
 ### Quizmaster
 
