@@ -14,6 +14,31 @@ The Quizzer is a een web applicatie die gebruikt kan worden in cafe's, sportkant
 * De vragen van Quizzer moeten in het kort beantwoord worden. Het zijn geen meerkeuze vragen maar dat      betekend niet dat er lange zinnen nodig zijn
 * De Quizz Master bepaalt wanneer een Quizz Night over is.En als het dan zo ver is, selecteert de          applicatie de winnaars op basis van de resultaten
 
+## Mock-ups
+
+### Quizmaster
+
+Start de Quizz Night en opent het voor teams.
+![Mockup quizmaster 1](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/1.PNG)
+
+Kan een team keuren (goedkeuren / rejecten)
+![Mockup quizmaster 2](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/2.PNG)
+
+3 categoriën selecteren, worden twaalf vragen uit gekozen
+![Mockup quizmaster 3](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/3.PNG)
+
+“Start” knop dat de vraag start en zichtbaar maakt op het scoreboard en de team app
+![Mockup quizmaster 4](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/4.PNG)
+
+Kan de volgende vraag kiezen ( nieuwe vraag kiezen )
+![Mockup quizmaster 5](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/5.PNG)
+
+Antwoord lezen en goedkeuren, afkeuren
+![Mockup quizmaster 6](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/6.PNG)
+
+Nog een keer spelen knop
+![Mockup quizmaster 7](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/7.PNG)
+
 ## Technieken
 
 ### Mongoose Data Schema's
@@ -55,6 +80,12 @@ quizRounds: number
 </table>
 
 ### Bootstrap
+
+We hebben bootstrap toegepast om de front-end van onze web applicatie eenvoudiger op te zetten dmv een grid-systeem, dit heeft ons geholpen de webapplicatie snel responsive te maken.
+
+### SCSS
+
+Als variant op CSS hebben we SCSS toegepast, we vinden als team dat SCSS overzichtelijker is om mee te werken dan CSS. Daarnaast is het een stuk uitgebreider dan standaard CSS.
 
 ### Express
 
@@ -117,6 +148,8 @@ Superagent word door de client gebruikt om data te versturen of op te halen van 
 ### Websockets ( ws )
 
 ### React.js
+
+We hebben React toegepast om de applicatie zo vloeiend mogelijk te laten lopen, zonder dat de pagina vaak refreshed moet worden.
 
 ### Routing
 
