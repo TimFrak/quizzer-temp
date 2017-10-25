@@ -76,9 +76,9 @@ Als team hadden we het besluit genomen om twee schema's te gebruiken, namelijk e
 ```
 {
 _id: Objectid,
-teamName: String,
-teamAproved: Boolean,
-teamPoints: Number
+teamName: {Type:String,required: true},
+teamAproved: {Type:Boolean,required: true},
+teamPoints: {Type:Number,required: true}
 }
 ```
 </td>
@@ -90,9 +90,9 @@ teamPoints: Number
 ```
 {
 _id: Objectid:
-quizPass: String,
-Teams: [Schema.Types.ObjectId],
-quizRounds: number
+quizPass: {Type:String,required: true},
+Teams: {Type:[Schema.Types.ObjectId],required: true},
+quizRounds: {Type:Number,required: true}
 }
 ```
 
@@ -168,7 +168,9 @@ Superagent word door de client gebruikt om data te versturen of op te halen van 
 
 ### Websockets ( ws )
 
-@@@@@@@@@@
+##### Quizmaster
+
+
 
 ### React.js
 
