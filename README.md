@@ -120,7 +120,7 @@ Wij hadden als team besloten om express te gebruiken om verschillende resource b
 
 `app.get('/quizmasters/categories')` haalt alle categorien op uit de database
 
-`app.post('/quizmaster/categories/questions')` op basis van de drie geselecteerde categorien worden er 12 vragen uit de database gehaald
+`app.get('/quizmaster/categories/questions')` op basis van de drie geselecteerde categorien worden er 12 vragen uit de database gehaald
 
 `app.post('/quizmasters')` verstuurt het wachtwoord en maakt een nieuwe quiz aan
 
@@ -152,7 +152,7 @@ Superagent word door de client gebruikt om data te versturen of op te halen van 
 
 `request.post('/quizmasters')` vertuurd een wachtwoord voor de quiz naar de server en start daarna de quiz
 
-`request.post('/quizmaster/categories/questions')`  vestuurd de drie gekozen categorein op naar de server en krijgt 12  vragen terug
+`request.get('/quizmaster/categories/questions')`  vestuurd de drie gekozen categorein op naar de server en krijgt 12  vragen terug
 
 ##### Teams
 
@@ -184,7 +184,7 @@ We hebben React toegepast om de applicatie zo vloeiend mogelijk te laten lopen, 
 
 ##### Quizmaster
 
-De quizmaster houd bij in de session hoeveel teams er al een vraag hebben beantwoord.!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+De quizmaster houd bij welke antwoord een team heeft gegeven op een vraag, daarnaast huidige vraag en het antwoord(Iedere ronde worden deze gereset)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 ##### Teams
 
