@@ -67,4 +67,18 @@ Het versturen van een antwoord op een vraag hoort in het volgende formaat te zij
  
 }
 ```
+### Bootstrap
 
+### Express
+
+### Node.js
+
+### SuperAgent
+
+### Websockets ( ws )
+
+### React.js
+
+### Routing
+
+### Sessions
