@@ -72,7 +72,6 @@ Wij hadden als team besloten om express te gebruiken om verschillende resource b
 
 `app.post('/quizmasters')` verstuurt het wachtwoord en maakt een nieuwe quiz aan
 
-
 ##### Teams
 
 `app.get('/teams')` toont het scherm voor de teams
@@ -84,14 +83,36 @@ Wij hadden als team besloten om express te gebruiken om verschillende resource b
 
 ##### Scoreboard
 
-`app.post('/scoreboards/rounds')` post het aantal gespeelde rondes nadat de quiz afgelopen is.
+`app.put('/scoreboards/rounds')` post het aantal gespeelde rondes nadat de quiz afgelopen is.
 
-`app.post('/scoreboards/scores')` post de scores die teams hebben behaald wanneer de quiz stopt
+`app.put('/scoreboards/scores')` post de scores die teams hebben behaald wanneer de quiz stopt
 
 
 ### Node.js
 
 ### SuperAgent
+
+Superagent word door de client gebruikt om data te versturen of op te halen van de server, de server handeld deze requests af.
+
+##### Quizmaster
+
+`request.get('quizmasters/categories')` haalt alle categorien en toont deze op het scherm van de quizmaster
+
+`request.post('/quizmasters')` vertuurd een wachtwoord voor de quiz naar de server en start daarna de quiz
+
+`request.post('/quizmaster/categories/questions')`  vestuurd de drie gekozen categorein op naar de server en krijgt 12  vragen terug
+
+##### Teams
+
+`request.post('/teams')`  verstuurd de naam van het team naar de server en daar wordt het opgeslagen
+
+`request.put('/teams/approval')` update de record in mongoose op met aprove of false, dit wordt gedaan door de quizmaster
+
+##### Scoreboard
+
+`request.put('/scoreboards/rounds')` update het aantal gespeelde rondes
+
+`request.put('/scoreboards/scores')` update de scores van alle teams die hebben meegedaan met de quiz
 
 ### Websockets ( ws )
 
