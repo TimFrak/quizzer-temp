@@ -54,19 +54,7 @@ quizRounds: number
 </tr>
 </table>
 
-### REST
 
-REST wordt door ons gebruikt om informatie te versturen naar de server, de server kan deze gegevens op slaan in de database en of een response terug sturen.
-
-#### Quiz master
-
-Het versturen van een antwoord op een vraag hoort in het volgende formaat te zijn
-
-```
-{
- 
-}
-```
 ### Bootstrap
 
 ### Express
