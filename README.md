@@ -168,7 +168,7 @@ Superagent word door de client gebruikt om data te versturen of op te halen van 
 
 ### Websockets ( ws )
 
-
+@@@@@@@@@@
 
 ### React.js
 
@@ -176,7 +176,7 @@ We hebben React toegepast om de applicatie zo vloeiend mogelijk te laten lopen, 
 
 ### Routing
 
-
+@@@@@@@@@@
 
 ### Sessions
 
