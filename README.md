@@ -36,7 +36,7 @@ The Quizzer is a een web applicatie die gebruikt kan worden in cafe's, sportkant
 
 1. Als een team zich heeft aangemeld en alles goed is verlopen, krijgt de Quiz master via een JSON websocket message de team naam binnen in het volgende formaat `message.teamName`.
 
-2. De Quiz master heeft de keuze om een team te accepteren of te weigeren, door op een van de twee te knoppen wordt de keuze bevestigd. Door een AJAX put request in het volgende formaat `request.put('api/teams').send({ approvel: Boolean})` naar de express route `app.put('api/teams')` te sturen, word er in mongoDB eerst het bijhorende record van het team gevonden en daarna geupdate op basis van de gemaakte keuze. Als de Quiz master `true` heeft gegeven veranderd er niks bij het team(mischien reponse terug van dat je mag meedoen).Maar als het `false` is wordt er het volgende JSON reponse terug gestuurd `{message: Je mag niet mee doen}`.
+2. De Quiz master heeft de keuze om een team te accepteren of te weigeren, door op een van de twee te knoppen wordt de keuze bevestigd. Door een AJAX put request in het volgende formaat `request.put('api/teams').send({ approvel: Boolean})` naar de express route `app.put('api/teams')` te sturen, word er in mongoDB eerst het bijhorende record van het team gevonden en daarna geupdate op basis van de gemaakte keuze. Als de Quiz master `true` heeft gegeven veranderd er niks bij het team(mischien response terug van dat je mag meedoen).Maar als het `false` is wordt er het volgende JSON reponse terug gestuurd `{message: Je mag niet mee doen}`.
 
 3. Nadat alle teams zijn beoordeelt door de Quiz master dan pas wordt het volgende scherm geladen als de Quizmaster op de "Verder knop" drukt.
 
@@ -45,10 +45,15 @@ The Quizzer is a een web applicatie die gebruikt kan worden in cafe's, sportkant
 
 1. Het eerste wat op dit scherm wordt uitgevoerd is een AJAX get request in het volgende formaat `request.get('api/cats')`. Op de server handelt de express route `app.get('api/cats')` de request af, deze haalt alle categorieën vanuit mongoDB met mongoose. De categorieën worden dan als response teruggestuurd naar de cliënt en laat ze zien aan de Quizmaster.
 
-2. Uit alle categoriën kiest de Quizmaster er drie uit. wanneer de Quizmaster op de knop "Verder" drukt word er een AJAX get request in het volgende formaat `request.get('api/cats/:id')` naar de express route `app.get('api/cats/:id')` op de server gestuurd. Deze route haalt 4 vragen van een categorie op uit de mongoDB database d.m.v mongoose en dit word terugstuurd in json in het volgende formaat `{}`.Dit gebeurt voor alle drie te categoriën en deze worden getoond op het volgende scherm.
+2. Uit alle categoriën kiest de Quizmaster er drie uit. wanneer de Quizmaster op de knop "Verder" drukt word er een AJAX get request in het volgende formaat `request.get('api/cats/:id')` naar de express route `app.get('api/cats/:id')` op de server gestuurd. Deze route haalt 4 vragen van een categorie op uit de mongoDB database d.m.v mongoose en dit word terugstuurd in json in het volgende formaat `{[{"question": String, answer:String ,category: String}]}`. De response van de server word opgeslagen in een session zodat we het meerdere keren kunnen gebruiken.
+
 
 * “Start” knop dat de vraag start en zichtbaar maakt op het scoreboard en de team app
 ![Mockup quizmaster 4](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/4.PNG)
+
+1. Er worden drie kolomen getoond met daarboven de gekozen categoriën, in iedere kolom bevinden zich 4 vragen van de categorie. Deze vragen waren opgehaald in het vorige scherm en bewaard in de session van de Quizmaster.
+
+2. Als de Quizmaster op de knop "Verder" drukt, vestuurd hij of zij een JSON websocket message in  het volgende formaat naar de teams en het scoreboards `websocket.send({"question": String})`. Nadat het JSON websocket message is verstuurd word de huidige vraag opgeslagen in de session van de Quizmaster. Als laaste word het volgende scherm getoond.
 
 * Kan de volgende vraag kiezen ( nieuwe vraag kiezen )
 ![Mockup quizmaster 5](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/5.PNG)
