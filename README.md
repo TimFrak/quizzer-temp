@@ -53,16 +53,32 @@ The Quizzer is a een web applicatie die gebruikt kan worden in cafe's, sportkant
 
 1. Er worden drie kolomen getoond met daarboven de gekozen categoriën, in iedere kolom bevinden zich 4 vragen van de categorie. Deze vragen waren opgehaald in het vorige scherm en bewaard in de session van de Quizmaster.
 
-2. Als de Quizmaster op de knop "Verder" drukt, vestuurd hij of zij een JSON websocket message in  het volgende formaat naar de teams en het scoreboards `websocket.send({"question": String})`. Nadat het JSON websocket message is verstuurd word de huidige vraag opgeslagen in de session van de Quizmaster. Als laaste word het volgende scherm getoond.
+2. Als de Quizmaster op de knop "Verder" drukt, vestuurd hij of zij een JSON websocket message in  het volgende formaat naar de teams en het scoreboards `websocket.send({"question": String})`. Nadat het JSON websocket message is verstuurd word de huidige vraag met het antwoord opgeslagen in de session van de Quizmaster. Als laaste word het volgende scherm getoond.
 
 * Kan de volgende vraag kiezen ( nieuwe vraag kiezen )
 ![Mockup quizmaster 5](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/5.PNG)
 
-* Antwoord lezen en goedkeuren, afkeuren
-![Mockup quizmaster 6](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/6.PNG)
+1. Het eerste wat wordt getoond zijn de gestelde vraag en het antwoord, in het vorige scherm waren deze opgeslagen in de session van de Quizmaster. De vraag en het antwoord worden uit de session gehaald en getoond op het scherm van de Quizmaster.
+
+2. nog iets invullen over de team namen
+
+3. Als een team een antwoord heeft ingevuld krijgt de Quizmaster deze binnen via een websocket message in het 
+JSON formaat,dit bericht ziet er dan uit zo uit `websocket.send({teamName: String, answer: String})`. Todat de quizmaster op de knop "Vraag sluiten" drukt hebben de teams de mogelijkheid om hun antwoord te wijzigen.
+
+4. De knop "Vraag sluiten" zorgt ervoor dat de teams hun vragen niet meer kunnen wijzigen, dit gebeurt door een JSON websocket message te sturen naar alle teams met daarin `websocket.send({open: Boolean})`.
+
+5. Hier heeft de Quizmaster de keuze om een vraag van een team goed of fout te keuren. Als de Quizmaster een vraag heeft fout of goed heeft gekeurd, dan wordt er een JSON websocket message gestuurd naar de scoreboard in het volgende formaat `websocket.send({teamName: String, correct: Boolean})`. Als de boolean `True` is wordt er een 1 bijgeschreven bij de correcte antwoorden van een team. Bij `False` wordt er niks gedaan met de JSON websocket message.
+
+6. Wanneer de Quizmaster alle vragen heeft gekeurd hoort hij of zij op de knop "Verder" te drukken, hierdoor wordt de volgende vraag geselecteerd in de lijst en begint het gehele proces weer overnieuw. In de session van de Quizmaster wordt er bijgehouden hoeveel vragen er al zijn geweest. Na vraag 12 wordt het volgende scherm getoond aan de Quizmaster.
 
 * Nog een keer spelen knop
 ![Mockup quizmaster 7](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/7.PNG)
+
+1. Na de 12 vragen is hier te zien welk team op dat moment de winnaar is van de quiz. Deze informatie wordt verkregen doordat de Scoreboard iedere ronde het team met het hoogste aantal punten opstuurt naar de Quizmaster via een JSON websocket message. 
+
+2. De knop "Stop" kan gebruikt worden door de Quizmaster om de quizz te beindigen, er wordt dan via een AJAX put request gestuurd naar de server. De call wordt gestuurd in het volgende formaat `request.put('api/:id').send({Isfinished: True})` naar expess route `app.put('api/:id')`. Het JSON response is als volgt `{Isfinished: True}` en dit wordt door gestuurd naar de teams en het scoreboard via het volgende JSON websocket message `websocket.send({Isfinished: True})`.
+
+3. Als de Quizmaster besluit om nog een ronde te spelen dan kan hij of zij drukken op de knop "Speel opnieuw", dit vestuurd een JSON websocket message naar de teams en het scoreboard. HIER NOG UITWERKEN NA BESCHRIJVEN SCOREBOARD TEAM
 
 ### Scoreboard app
 
