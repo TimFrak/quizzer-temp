@@ -187,7 +187,17 @@ Superagent word door de client gebruikt om data te versturen of op te halen van 
 
 ### React.js
 
-We hebben React toegepast om de applicatie zo vloeiend mogelijk te laten lopen, zonder dat de pagina vaak refreshed moet worden.
+We hebben React toegepast om de applicatie zo vloeiend mogelijk te laten lopen, zonder dat de pagina vaak refreshed moet worden. Onze Quizzer app is onderverdeeld in drie verschillende single-page React applicaties. De benodigde informatie wordt opgehaald via onze ‘/api’ applicatie.
+
+#### /qm
+Het `/qm` scherm is  de react applicatie die verantwoordelijk is voor het tonen van de informatie die van belang is voor de quizmaster.
+
+#### /team
+Het `/team` scherm is de react applicatie die verantwoordelijk is voor het team.
+
+#### /score
+Het `/score` scherm is het scoreboard.
+
 
 ### Routing
 
