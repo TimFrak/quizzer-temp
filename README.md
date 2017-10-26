@@ -29,11 +29,23 @@ The Quizzer is a een web applicatie die gebruikt kan worden in cafe's, sportkant
 * Start de Quizz Night en opent het voor teams.
 ![Mockup quizmaster 1](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/1.PNG)
 
+1. Wanneer de Quiz master een wachtwoord heeft ingevuld en daarna op de knop "Start quizz" drukt wordt deze via AJAX `request.post('/api')` naar de server gestuurd. De server handeld de request af met de express route `app.post('/api')`, in de route wordt in mongoDB een nieuwe entry gemaakt voor een nieuwe quizz. Als er al een quizz bestaat met hetzelfde wachtwoord wordt een JSON reponse terug gestuurd met daarin het volgende bericht `{ message: 'Er bestaat al een quiz met het zelfde wachtwoord'}`, zoniet dan wordt het volgende scherm getoond.
+
 * Kan een team keuren (goedkeuren / rejecten)
 ![Mockup quizmaster 2](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/2.PNG)
 
+1. Als een team zich heeft aangemeld en alles goed is verlopen, krijgt de Quiz master via een JSON websocket message de team naam binnen in het volgende formaat `message.teamName`.
+
+2. De Quiz master heeft de keuze om een team te accepteren of te weigeren, door op een van de twee te knoppen wordt de keuze bevestigd. Door een AJAX put request in het volgende formaat `request.put('api/teams').send({ approvel: Boolean})` naar de express route `app.put('api/teams')` te sturen, word er in mongoDB eerst het bijhorende record van het team gevonden en daarna geupdate op basis van de gemaakte keuze. Als de Quiz master `true` heeft gegeven veranderd er niks bij het team(mischien reponse terug van dat je mag meedoen).Maar als het `false` is wordt er het volgende JSON reponse terug gestuurd `{message: Je mag niet mee doen}`.
+
+3. Nadat alle teams zijn beoordeelt door de Quiz master dan pas wordt het volgende scherm geladen als de Quizmaster op de "Verder knop" drukt.
+
 * 3 categoriën selecteren, worden twaalf vragen uit gekozen
 ![Mockup quizmaster 3](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/3.PNG)
+
+1. Het eerste wat op dit scherm wordt uitgevoerd is een AJAX get request in het volgende formaat `request.get('api/cats')`. Op de server handelt de express route `app.get('api/cats')` de request af, deze haalt alle categorieën vanuit mongoDB met mongoose. De categorieën worden dan als response teruggestuurd naar de cliënt en laat ze zien aan de Quizmaster.
+
+2. Uit alle categoriën kiest de Quizmaster er drie uit. wanneer de Quizmaster op de knop "Verder" drukt word er een AJAX get request in het volgende formaat `request.get('api/cats/:id')` naar de express route `app.get('api/cats/:id')` op de server gestuurd. Deze route haalt 4 vragen van een categorie op uit de mongoDB database d.m.v mongoose en dit word terugstuurd in json in het volgende formaat `{}`.Dit gebeurt voor alle drie te categoriën en deze worden getoond op het volgende scherm.
 
 * “Start” knop dat de vraag start en zichtbaar maakt op het scoreboard en de team app
 ![Mockup quizmaster 4](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/4.PNG)
