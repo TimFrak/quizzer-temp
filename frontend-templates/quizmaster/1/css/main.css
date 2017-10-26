@@ -1,0 +1,14 @@
+body p {
+  color: black; }
+body h1 {
+  text-align: center;
+  padding: 50px 0px;
+  font-size: 65px; }
+
+#qmIntro {
+  text-align: center; }
+  #qmIntro button {
+    margin-top: 40px;
+    padding: 40px; }
+
+/*# sourceMappingURL=main.css.map */

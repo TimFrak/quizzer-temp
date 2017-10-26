@@ -203,11 +203,6 @@ Het `/team` scherm is de react applicatie die verantwoordelijk is voor het team.
 #### /score
 Het `/score` scherm is het scoreboard.
 
-
-### Routing
-
-@@@@@@@@@@
-
 ### Sessions
 
 ##### Quizmaster
