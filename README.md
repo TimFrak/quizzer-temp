@@ -31,11 +31,12 @@ The Quizzer is a een web applicatie die gebruikt kan worden in cafe's, sportkant
 
 1. Het aantal vragen dat is geweest wordt opgeslagen in de session van een team. Als er weer een nieuwe vraag binnen komt van de Quizmaster dan wordt er weer 1 bijgeteld bij het totale aantal. Na een ronde wordt dit weer gereset.
 
-2. De vraag en categrie krijgt een team binnen van de Quizmaster d.m.v het volgende de websocket message `websocket.send({"question": String, category: 'String'})`. Wanneer een team een antwoord heeft ingevuld in het input veld maar nog niet op "Verder" heeft geklikt word het volgende JSON websocket message naar het scoreboard gestuurd `websocket.send({teamName: String, answered: Boolean})`. Als er nog niks in ingevuld dan staat `answered` op `False` maar na het invullen van het input veld word het `True`.
+2. De vraag en categrie krijgt een team binnen van de Quizmaster d.m.v het volgende de websocket message `websocket.send({"question": String, category: 'String'})`.
 
-3. Uit het input veld word het antwoord op de vraag van een team gehaald, dit gebeurd waarschijnlijk d.m.v `document.getElementById(String).value`.
+3. Uit het input veld word het antwoord op de vraag van een team gehaald, dit gebeurd waarschijnlijk d.m.v `document.getElementById(String).value`.Wanneer een team een antwoord heeft ingevuld in het input veld maar nog niet op "Verder" heeft geklikt word het volgende JSON websocket message naar het scoreboard gestuurd `websocket.send({teamName: String, answered: Boolean})`. Als er nog niks in ingevuld dan staat `answered` op `False` maar na het invullen van het input veld word het `True`.
 
-4. 
+4. Als een team een antwoordt heeft ingevuld in het input veld en op de knop “Verder” drukt dan wordt er het volgende JSON websocket message `websocket.send({“teamName”: String, “question”: String, answer: String})` verstuurd naar de Quizmaster.<br><br> De Quizmaster kan het antwoord zien van ieder team, als een team hun antwoord wil aanpassen dan hebben ze hiervoor de mogelijkheid totdat de Quizmaster de vraag sluit. Het laatst  verstuurde antwoord is dan het definitieve antwoord van een team. Het team kan dan ook niks meer submitten en krijgt een pop-up te zien met het volgende bericht `Vraag gesloten`.
+
 
 ### Quizmaster
 
@@ -170,7 +171,7 @@ app.put('api/:id') {
 
 6. De huidige vraag en categorie krijgt het scoreboard van de Quizmaster, ze zijn verstuurd via het volgende JSON websocket message `websocket.send({"question": String, category: 'String'})`. De informatie uit de websocket message is opgeslagen en word getoond op scherm. Als de volgende vraag binnenkomt word de inhoud van de session vervangen.
 
-7. Om alle teams te tonen die een antwoord hebben verstuurd, heeft de Quizmaster het volgende JSON websocket message opgestuurd `websocket.send({teamName: String, answer: String, correct: Boolean})`. Op basis hiervan word een team 
+7. Als een team een antwoord heeft ingevuld in het input veld dan krijgt het scoreboard het volgende JSON websocket message binnen `websocket.send({teamName: String, answered: Boolean})`. Wanneer `answered: True` is dan word de teamnaam getoond en als het `answered: False` is niet.
 
 * Zodra een antwoord is goedgekeurd of afgewezen, worden alle vragen getoond van de teams en wanneer goedgekeurd of afgewezen word de score bijgewerkt.
 
