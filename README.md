@@ -78,7 +78,7 @@ app.post('/api', function (req, res) {
 
 1. Als een team zich heeft aangemeld en alles goed is verlopen, krijgt de Quiz master via een JSON websocket message de team naam binnen in het volgende formaat `message.teamName`.
 
-2. De Quiz master heeft de keuze om een team te accepteren of te weigeren, door op een van de twee te knoppen wordt de keuze bevestigd. Door een AJAX put request in het volgende formaat `request.put('api/teams').send({ approvel: Boolean})` naar de express route `app.put('api/teams')` te sturen, word er in mongoDB eerst het bijhorende record van het team gevonden en daarna geupdate op basis van de gemaakte keuze. Als de Quiz master `true` heeft gegeven veranderd er niks bij het team(mischien response terug van dat je mag meedoen).Maar als het `false` is wordt er het volgende JSON reponse terug gestuurd `{message: Je mag niet mee doen}`. het objectID van het team word opgeslagen in het bijbehorende quiz document  wanneer `{approvel: True}` is.
+2. De Quiz master heeft de keuze om een team te accepteren of te weigeren, door op een van de twee te knoppen wordt de keuze bevestigd. Door een AJAX put request in het volgende formaat `request.put('api/teams').send({ approvel: Boolean})` naar de express route `app.put('api/teams')` te sturen, word er in mongoDB eerst het bijhorende record van het team gevonden en daarna geupdate op basis van de gemaakte keuze. Als de Quiz master `true` heeft gegeven veranderd er niks bij het team(mischien response terug van dat je mag meedoen).Maar als het `false` is wordt er het volgende JSON reponse terug gestuurd `{message: Je mag niet mee doen}`. het objectID van het team word opgeslagen in het bijbehorende quiz document  wanneer `{approvel: True}` is. Naast dit worden alle goedgekeurde teams opgeslagen in de session van de Quizmaster.
 
 3. Nadat alle teams zijn beoordeelt door de Quiz master dan pas wordt het volgende scherm geladen als de Quizmaster op de "Verder knop" drukt.
 
@@ -136,7 +136,7 @@ app.get('api/cats/:id', function (req, res) {
 
 1. Het eerste wat wordt getoond zijn de gestelde vraag en het antwoord, in het vorige scherm waren deze opgeslagen in de session van de Quizmaster. De vraag en het antwoord worden uit de session gehaald en getoond op het scherm van de Quizmaster.
 
-2. nog iets invullen over de team namen !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+2. Alle teams worden uit de session gehaald van goedgekeurde team. en getoond op het scherm
 
 3. Als een team een antwoord heeft ingevuld krijgt de Quizmaster deze binnen via een websocket message in het 
 JSON formaat,dit bericht ziet er dan uit zo uit `websocket.send({teamName: String, answer: String})`. Todat de quizmaster op de knop "Vraag sluiten" drukt hebben de teams de mogelijkheid om hun antwoord te wijzigen.
@@ -278,12 +278,26 @@ Het `/score` scherm is het scoreboard.
 
 ##### Quizmaster
 
-De quizmaster houd bij welke antwoord een team heeft gegeven op een vraag, daarnaast huidige vraag en het antwoord(Iedere ronde worden deze gereset)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+`session.questionsRound = Array;` // bewaard alle twaalf de vragen van de drie verschillende categorieën in een array.
+
+`session.approvedTeams = Array;` // bewaard alle teams die zijn goedgekeurd door de Quizmaster.
+
+`session.currentQuestion = Object;` // bewaard de huidige vraag en categorie van een ronde.
 
 ##### Teams
 
-in de session van een team wordt de team naam opgeslagen en of een vraag al is beantwoord(mischien nog niet zeker)
+`session.currentQuestion = Object;` // bewaard de huidige vraag en categorie van een ronde.
 
 ##### Scoreboard
 
-Als eerste zijn wij van plan om in de session op te slaan, hoeveel rondes er al zijn gespeeld en het aantal beantwoorde vragen in de ronde\. Verder wordt het aantal punter per team nog opgeslagen in een session en hoeveel vragen een team correct heeft beantwoord in een ronde.
+`session.roundPlayed = Numbers;` //+1 iedere ronde.
+
+`session.roundQuestions = Numbers;` //+1 na iedere gestelde vraag.
+
+`session.teamNames = Array;` //bewaard alle namen van de teams die meedoen in een quiz.
+
+`session.teamCorrectAnswers` = Array; //bewaard het aantal correcte antwoorden van alle teams in een ronde.
+
+`session.teamPoints = Array;` //bewaard het totaal aantal punten van alle teams in een quiz.
+
+`session.roundCurQuestion = Object;` //bewaard de huidige vraag en categorie in een object, word iedere ronde overschreven.
