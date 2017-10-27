@@ -201,6 +201,20 @@ Isfinished: {Type:Boolean, required: true}
 ```
 
 </td>
+<td>
+
+#### Vragen
+
+```
+{
+_id: getNextSequenceValue(value), //Auto-Increment
+question: {Type:String,required: true},
+answer: {Type:String,required: true},
+category: {Type:String,required: true}
+}
+```
+
+</td>
 </tr>
 </table>
 
@@ -212,69 +226,9 @@ We hebben bootstrap toegepast om de front-end van onze web applicatie eenvoudige
 
 Als variant op CSS hebben we SCSS toegepast, we vinden als team dat SCSS overzichtelijker is om mee te werken dan CSS. Daarnaast is het een stuk uitgebreider dan standaard CSS.
 
-### Express
-
-Wij hadden als team besloten om express te gebruiken om verschillende resource based routes aan te maken. Deze verschillende resource based routes worden hieronder in het kort beschreven:
-
-`app.get('/')` toont de homepage en hier krijg je de keuze om als team te spelen of om een quiz te starten
-
-##### Quizmaster
-
-`app.get('/quizmasters')` toont het scherm voor de quizmaster
-
-`app.get('/quizmasters/categories')` haalt alle categorien op uit de database
-
-`app.get('/quizmaster/categories/questions')` op basis van de drie geselecteerde categorien worden er 12 vragen uit de database gehaald
-
-`app.post('/quizmasters')` verstuurt het wachtwoord en maakt een nieuwe quiz aan
-
-##### Teams
-
-`app.get('/teams')` toont het scherm voor de teams
-
-`app.post('/teams')` voegt een team toe aan de mongoDB database als deze nog niet bestaat
-
-`app.put('/teams/approval')` wordt door de quizmaster gebruikt om een team goed of fout te keuren
-
-
-##### Scoreboard
-
-`app.put('/scoreboards/rounds')` post het aantal gespeelde rondes nadat de quiz afgelopen is.
-
-`app.put('/scoreboards/scores')` post de scores die teams hebben behaald wanneer de quiz stopt
-
-
-### Node.js
-
-### SuperAgent
-
-Superagent word door de client gebruikt om data te versturen of op te halen van de server, de server handeld deze requests af.
-
-##### Quizmaster
-
-`request.get('quizmasters/categories')` haalt alle categorien en toont deze op het scherm van de quizmaster
-
-`request.post('/quizmasters')` vertuurd een wachtwoord voor de quiz naar de server en start daarna de quiz
-
-`request.get('/quizmaster/categories/questions')`  vestuurd de drie gekozen categorein op naar de server en krijgt 12  vragen terug
-
-##### Teams
-
-`request.post('/teams')`  verstuurd de naam van het team naar de server en daar wordt het opgeslagen
-
-`request.put('/teams/approval')` update de record in mongoose op met aprove of false, dit wordt gedaan door de quizmaster
-
-##### Scoreboard
-
-`request.put('/scoreboards/rounds')` update het aantal gespeelde rondes
-
-`request.put('/scoreboards/scores')` update de scores van alle teams die hebben meegedaan met de quiz
-
 ### Websockets ( ws )
 
 ##### Quizmaster
-
-
 
 ### React.js
 
