@@ -21,15 +21,28 @@ The Quizzer is a een web applicatie die gebruikt kan worden in cafe's, sportkant
 * Veld teamnaam
 ![Mockup team-app 1](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/991.PNG)
 
+1. Wanneer iemand wil meespelen met een quiz moet de persoon of groep mensen eerst een team naam en het wachtwoord invullen. Het wachtwoord van een quiz hoort de persoon of groep mensen te krijgen van de Quizmaster.
+
+2. Als de persoon of groep alle velden heeft ingevuld en drukt op de knop “Verder” dan word er via AJAX `request.post(‘api/teams’)` gestuurd naar de server. De server handelt het request af met de express route `app.post(‘api/teams’)`, in deze route wordt er gecheckt in mongoDB of het wachtwoord overeenkomt met een quiz en tegelijk wordt er gekeken of er al een team bestaat met de zelfde naam.Als een van de twee al voorkomt stuurt de route het volgende JSON response terug `{ message: “Team naam bestaat al of er bestaat geen quiz met dat wachtwoord”}`.Zo niet dan wordt een nieuwe team document aangemaakt in mongoDB. 
+
+
 * Vraag invullen, antwoord geven
 ![Mockup team-app 2](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/992.PNG)
+
+1. Het aantal vragen dat is geweest wordt opgeslagen in de session van een team. Als er weer een nieuwe vraag binnen komt van de Quizmaster dan wordt er weer 1 bijgeteld bij het totale aantal. Na een ronde wordt dit weer gereset.
+
+2. De vraag en categrie krijgt een team binnen van de Quizmaster d.m.v het volgende de websocket message `websocket.send({"question": String, category: 'String'})`. Wanneer een team een antwoord heeft ingevuld in het input veld maar nog niet op "Verder" heeft geklikt word het volgende JSON websocket message naar het scoreboard gestuurd `websocket.send({teamName: String, answered: Boolean})`. Als er nog niks in ingevuld dan staat `answered` op `False` maar na het invullen van het input veld word het `True`.
+
+3. Uit het input veld word het antwoord op de vraag van een team gehaald, dit gebeurd waarschijnlijk d.m.v `document.getElementById(String).value`.
+
+4. 
 
 ### Quizmaster
 
 * Start de Quizz Night en opent het voor teams.
 ![Mockup quizmaster 1](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/1.PNG)
 
-1. Wanneer de Quiz master een wachtwoord heeft ingevuld en daarna op de knop "Start quizz" drukt wordt deze via AJAX `request.post('/api')` naar de server gestuurd. De server handeld de request af met de express route `app.post('/api')`, in de route wordt in mongoDB een nieuwe entry gemaakt voor een nieuwe quizz. Als er al een quizz bestaat met hetzelfde wachtwoord wordt een JSON reponse terug gestuurd met daarin het volgende bericht `{ message: 'Er bestaat al een quiz met het zelfde wachtwoord'}`, zoniet dan wordt het volgende scherm getoond.
+1. Wanneer de Quiz master een wachtwoord heeft ingevuld en daarna op de knop "Start quizz" drukt wordt deze via AJAX `request.post('/api)` naar de server gestuurd. De server handeld de request af met de express route `app.post('/api')`, in de route wordt in mongoDB een nieuwe entry gemaakt voor een nieuwe quizz. Als er al een quizz bestaat met hetzelfde wachtwoord wordt een JSON reponse terug gestuurd met daarin het volgende bericht `{ message: 'Er bestaat al een quiz met het zelfde wachtwoord'}`, zoniet dan wordt het volgende scherm getoond.
 
 ```
 ## Express route
@@ -49,7 +62,7 @@ app.post('/api', function (req, res) {
 
 1. Als een team zich heeft aangemeld en alles goed is verlopen, krijgt de Quiz master via een JSON websocket message de team naam binnen in het volgende formaat `message.teamName`.
 
-2. De Quiz master heeft de keuze om een team te accepteren of te weigeren, door op een van de twee te knoppen wordt de keuze bevestigd. Door een AJAX put request in het volgende formaat `request.put('api/teams').send({ approvel: Boolean})` naar de express route `app.put('api/teams')` te sturen, word er in mongoDB eerst het bijhorende record van het team gevonden en daarna geupdate op basis van de gemaakte keuze. Als de Quiz master `true` heeft gegeven veranderd er niks bij het team(mischien response terug van dat je mag meedoen).Maar als het `false` is wordt er het volgende JSON reponse terug gestuurd `{message: Je mag niet mee doen}`.
+2. De Quiz master heeft de keuze om een team te accepteren of te weigeren, door op een van de twee te knoppen wordt de keuze bevestigd. Door een AJAX put request in het volgende formaat `request.put('api/teams').send({ approvel: Boolean})` naar de express route `app.put('api/teams')` te sturen, word er in mongoDB eerst het bijhorende record van het team gevonden en daarna geupdate op basis van de gemaakte keuze. Als de Quiz master `true` heeft gegeven veranderd er niks bij het team(mischien response terug van dat je mag meedoen).Maar als het `false` is wordt er het volgende JSON reponse terug gestuurd `{message: Je mag niet mee doen}`. het objectID van het team word opgeslagen in het bijbehorende quiz document  wanneer `{approvel: True}` is.
 
 3. Nadat alle teams zijn beoordeelt door de Quiz master dan pas wordt het volgende scherm geladen als de Quizmaster op de "Verder knop" drukt.
 
@@ -100,23 +113,23 @@ app.get('api/cats/:id', function (req, res) {
 
 1. Er worden drie kolomen getoond met daarboven de gekozen categoriën, in iedere kolom bevinden zich 4 vragen van de categorie. Deze vragen waren opgehaald in het vorige scherm en bewaard in de session van de Quizmaster.
 
-2. Als de Quizmaster op de knop "Verder" drukt, vestuurd hij of zij een JSON websocket message in  het volgende formaat naar de teams en het scoreboards `websocket.send({"question": String})`. Nadat het JSON websocket message is verstuurd word de huidige vraag met het antwoord opgeslagen in de session van de Quizmaster. Als laaste word het volgende scherm getoond.
+2. Als de Quizmaster op de knop "Verder" drukt, vestuurd hij of zij een JSON websocket message in  het volgende formaat naar de teams en het scoreboards `websocket.send({"question": String, category: 'String'})`. Nadat het JSON websocket message is verstuurd word de huidige vraag met het antwoord opgeslagen in de session van de Quizmaster. Als laaste word het volgende scherm getoond.
 
 * Kan de volgende vraag kiezen ( nieuwe vraag kiezen )
 ![Mockup quizmaster 5](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/5.PNG)
 
 1. Het eerste wat wordt getoond zijn de gestelde vraag en het antwoord, in het vorige scherm waren deze opgeslagen in de session van de Quizmaster. De vraag en het antwoord worden uit de session gehaald en getoond op het scherm van de Quizmaster.
 
-2. nog iets invullen over de team namen
+2. nog iets invullen over de team namen !!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 3. Als een team een antwoord heeft ingevuld krijgt de Quizmaster deze binnen via een websocket message in het 
 JSON formaat,dit bericht ziet er dan uit zo uit `websocket.send({teamName: String, answer: String})`. Todat de quizmaster op de knop "Vraag sluiten" drukt hebben de teams de mogelijkheid om hun antwoord te wijzigen.
 
 4. De knop "Vraag sluiten" zorgt ervoor dat de teams hun vragen niet meer kunnen wijzigen, dit gebeurt door een JSON websocket message te sturen naar alle teams met daarin `websocket.send({open: Boolean})`.
 
-5. Hier heeft de Quizmaster de keuze om een vraag van een team goed of fout te keuren. Als de Quizmaster een vraag heeft fout of goed heeft gekeurd, dan wordt er een JSON websocket message gestuurd naar de scoreboard in het volgende formaat `websocket.send({teamName: String, correct: Boolean})`. Als de boolean `True` is wordt er een 1 bijgeschreven bij de correcte antwoorden van een team. Bij `False` wordt er niks gedaan met de JSON websocket message.
+5. Hier heeft de Quizmaster de keuze om een vraag van een team goed of fout te keuren. Als de Quizmaster een vraag heeft fout of goed heeft gekeurd, dan wordt er een JSON websocket message gestuurd naar de scoreboard in het volgende formaat `websocket.send({teamName: String, answer: String, correct: Boolean})`. Als de boolean `True` is wordt er een 1 bijgeschreven bij de correcte antwoorden van een team. Bij `False` wordt er niks gedaan met de JSON websocket message.
 
-6. Wanneer de Quizmaster alle vragen heeft gekeurd hoort hij of zij op de knop "Verder" te drukken, hierdoor wordt de volgende vraag geselecteerd in de lijst en begint het gehele proces weer overnieuw. In de session van de Quizmaster wordt er bijgehouden hoeveel vragen er al zijn geweest. Na vraag 12 wordt het volgende scherm getoond aan de Quizmaster.
+6. Wanneer de Quizmaster alle vragen heeft gekeurd hoort hij of zij op de knop "Verder" te drukken, hierdoor wordt de volgende vraag geselecteerd in de lijst en begint het gehele proces weer overnieuw. In de session van de Quizmaster wordt er bijgehouden hoeveel vragen er al zijn geweest. Na vraag 12 wordt het volgende scherm getoond aan de Quizmaster. het volgende JSON websocket message wordt verstuurd `websocket.send({nexRound: Boolean})`;
 
 * Nog een keer spelen knop
 ![Mockup quizmaster 7](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/7.PNG)
@@ -151,17 +164,19 @@ app.put('api/:id') {
 
 3. Om de team namen te kunnen tonen heeft de Quizmaster een JSON websocket bericht gestuurd naar het scoreboard in het volgende formaat `websocket.send({teamNames: [String]})`. Het scoreboard haalt alle team namen uit dit bericht en slaat ze op in de session van het scoreboard. Hierna worden ze getoond op het scherm.
 
-4. Na iedere vraag heeft de Quizmaster het volgende JSON websocket message gestuurd naar het scoreboard `websocket.send({teamName: String, correct: Boolean})`. Als er in het bericht `correct: True` staat wordt het nummer van "Correcte antwoorden" van een team verhoogt met 1. Dit wordt bewaard in de session van het scoreboard en na iedere ronde wordt het gereset.
+4. Na iedere vraag heeft de Quizmaster het volgende JSON websocket message gestuurd naar het scoreboard `websocket.send({teamName: String, answer: String, correct: Boolean})`. Als er in het bericht `correct: True` staat wordt het nummer van "Correcte antwoorden" van een team verhoogt met 1. Dit wordt bewaard in de session van het scoreboard en na iedere ronde wordt het gereset.
 
 5. Netzo als bij stap 1 word het aantal punten van een team berekend als het scoreboard het volgende JSON websocket message binnen krijgt `{nexRound: True}`. Het team met het meeste aantal goede antwoorden in een ronde krijgt 4 round points bij het totaal, de nummer twee krijgt 2 round points en het derde team krijgt 1 round points. Alle andere teams krijgen 0.1 round points. Al deze punten worden bijgehouden in de session van het scoreboard.
 
-6. 
+6. De huidige vraag en categorie krijgt het scoreboard van de Quizmaster, ze zijn verstuurd via het volgende JSON websocket message `websocket.send({"question": String, category: 'String'})`. De informatie uit de websocket message is opgeslagen en word getoond op scherm. Als de volgende vraag binnenkomt word de inhoud van de session vervangen.
 
-7. 
+7. Om alle teams te tonen die een antwoord hebben verstuurd, heeft de Quizmaster het volgende JSON websocket message opgestuurd `websocket.send({teamName: String, answer: String, correct: Boolean})`. Op basis hiervan word een team 
 
 * Zodra een antwoord is goedgekeurd of afgewezen, worden alle vragen getoond van de teams en wanneer goedgekeurd of afgewezen word de score bijgewerkt.
 
 ![Mockup scoreboard 2](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/Scoreboard%20part%202.PNG)
+
+1. Wanneer de Quizmaster een vraag heeft gesloten veranderd het scherm. Zo is er te zien welke antwoord ieder team heeft gegeven en of deze goed of fout zijn gekeurd. Dit haalt het scherm op door zijn eigen session te raadplagen want hierin wordt dit bewaard in de vorm van een array. Deze array wordt dan uitgelezen en op basis daarvan krijgt een team een bepaald aantal punten.
 
 ## Technieken
 
