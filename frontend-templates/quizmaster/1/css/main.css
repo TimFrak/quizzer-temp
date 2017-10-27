@@ -11,4 +11,17 @@ body h1 {
     margin-top: 40px;
     padding: 40px; }
 
+#qmTmOverzicht {
+  text-align: left; }
+
+#btmButtonArea {
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 50px;
+  right: 25%;
+  left: 50%; }
+
+#teamOverzichtTable tr td:first-child {
+  padding-right: 50px; }
+
 /*# sourceMappingURL=main.css.map */

@@ -23,6 +23,16 @@ body {
     text-align: left;
 }
 
-#btmButton {
-    color: yellow !important;
+#btmButtonArea {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 50px;
+    right: 25%;
+    left: 50%;
+}
+
+#teamOverzichtTable {
+    tr td:first-child {
+        padding-right: 50px;
+    }
 }

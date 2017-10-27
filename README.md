@@ -31,6 +31,19 @@ The Quizzer is a een web applicatie die gebruikt kan worden in cafe's, sportkant
 
 1. Wanneer de Quiz master een wachtwoord heeft ingevuld en daarna op de knop "Start quizz" drukt wordt deze via AJAX `request.post('/api')` naar de server gestuurd. De server handeld de request af met de express route `app.post('/api')`, in de route wordt in mongoDB een nieuwe entry gemaakt voor een nieuwe quizz. Als er al een quizz bestaat met hetzelfde wachtwoord wordt een JSON reponse terug gestuurd met daarin het volgende bericht `{ message: 'Er bestaat al een quiz met het zelfde wachtwoord'}`, zoniet dan wordt het volgende scherm getoond.
 
+```
+## Express route
+
+app.post('/api', function (req, res) {
+  if (// als het wachtwoord al bestaat) { 
+    req.post('/api').send({message: 'Er bestaat al een quiz met het zelfde wachtwoord'})
+  }
+  else {
+    // Maakt een nieuwe mongoDB entry aan voor een nieuwe quizz.
+  }
+})
+```
+
 * Kan een team keuren (goedkeuren / rejecten)
 ![Mockup quizmaster 2](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/2.PNG)
 
@@ -40,13 +53,47 @@ The Quizzer is a een web applicatie die gebruikt kan worden in cafe's, sportkant
 
 3. Nadat alle teams zijn beoordeelt door de Quiz master dan pas wordt het volgende scherm geladen als de Quizmaster op de "Verder knop" drukt.
 
+```
+## Express route
+
+app.put('/api/teams', function (req, res) {
+  // route ontvangt een boolean bij het goedkeuren of afwijzen van een team
+
+  if (// als de boolean (approvel) true is) { 
+    // Voegt het team toe in MongoDB
+  }
+  else {
+    // Verstuurd een message, dat het team niet mag mee doen
+  }
+})
+```
+
 * 3 categoriën selecteren, worden twaalf vragen uit gekozen
 ![Mockup quizmaster 3](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/3.PNG)
 
 1. Het eerste wat op dit scherm wordt uitgevoerd is een AJAX get request in het volgende formaat `request.get('api/cats')`. Op de server handelt de express route `app.get('api/cats')` de request af, deze haalt alle categorieën vanuit mongoDB met mongoose. De categorieën worden dan als response teruggestuurd naar de cliënt en laat ze zien aan de Quizmaster.
 
+```
+## Express route
+
+app.get('/api/cats', function (req, res) {
+  // Haalt alle categoriën op vanuit MongoDB met mongooose
+
+  res.send(// Verstuurd de categorieën als response terug naar de cliënt);
+})
+```
+
 2. Uit alle categoriën kiest de Quizmaster er drie uit. wanneer de Quizmaster op de knop "Verder" drukt word er een AJAX get request in het volgende formaat `request.get('api/cats/:id')` naar de express route `app.get('api/cats/:id')` op de server gestuurd. Deze route haalt 4 vragen van een categorie op uit de mongoDB database d.m.v mongoose en dit word terugstuurd in json in het volgende formaat `{[{"question": String, answer:String ,category: String}]}`. De response van de server word opgeslagen in een session zodat we het meerdere keren kunnen gebruiken.
 
+```
+## Express route
+
+app.get('api/cats/:id', function (req, res) {
+  // Haalt alle categoriën op vanuit MongoDB met mongooose
+
+  res.send({[{"question": String, answer:String ,category: String}]} // Verstuurd de 4 categoriën in JSON);
+})
+```
 
 * “Start” knop dat de vraag start en zichtbaar maakt op het scoreboard en de team app
 ![Mockup quizmaster 4](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/4.PNG)
@@ -77,6 +124,15 @@ JSON formaat,dit bericht ziet er dan uit zo uit `websocket.send({teamName: Strin
 1. Na de 12 vragen is hier te zien welk team op dat moment de winnaar is van de quiz. Deze informatie wordt verkregen doordat de Scoreboard iedere ronde het team met het hoogste aantal punten opstuurt naar de Quizmaster via een JSON websocket message. 
 
 2. De knop "Stop" kan gebruikt worden door de Quizmaster om de quizz te beindigen, er wordt dan via een AJAX put request gestuurd naar de server. De call wordt gestuurd in het volgende formaat `request.put('api/:id').send({Isfinished: True})` naar expess route `app.put('api/:id')`. Het JSON response is als volgt `{Isfinished: True}` en dit wordt door gestuurd naar de teams en het scoreboard via het volgende JSON websocket message `websocket.send({Isfinished: True})`.
+
+```
+## Express route
+
+// Wanneer de quizmaster de quizz stopt
+app.put('api/:id') {
+  res.send({Isfinished: True});
+})
+```
 
 3. Als de Quizmaster besluit om nog een ronde te spelen dan kan hij of zij drukken op de knop "Speel opnieuw", dit vestuurd een JSON websocket message naar de teams en het scoreboard. HIER NOG UITWERKEN NA BESCHRIJVEN SCOREBOARD TEAM
 
