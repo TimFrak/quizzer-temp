@@ -46,7 +46,7 @@ app.post('api/teams', function (req, res) {
 
 1. Het aantal vragen dat is geweest wordt opgeslagen in de session van een team. Als er weer een nieuwe vraag binnen komt van de Quizmaster dan wordt er weer 1 bijgeteld bij het totale aantal. Na een ronde wordt dit weer gereset.
 
-2. De vraag en categrie krijgt een team binnen van de Quizmaster d.m.v het volgende de websocket message `websocket.send({"question": String, category: 'String'})`.
+2. De vraag en categorie krijgt een team binnen van de Quizmaster d.m.v het volgende de websocket message `websocket.send({"question": String, category: 'String'})`.
 
 3. Uit het input veld word het antwoord op de vraag van een team gehaald, dit gebeurd waarschijnlijk d.m.v `document.getElementById(String).value`.Wanneer een team een antwoord heeft ingevuld in het input veld maar nog niet op "Verder" heeft geklikt word het volgende JSON websocket message naar het scoreboard gestuurd `websocket.send({teamName: String, answered: Boolean})`. Als er nog niks in ingevuld dan staat `answered` op `False` maar na het invullen van het input veld word het `True`.
 
