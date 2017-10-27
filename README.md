@@ -184,7 +184,7 @@ app.put('api/:id') {
 
 5. Netzo als bij stap 1 word het aantal punten van een team berekend als het scoreboard het volgende JSON websocket message binnen krijgt `{nexRound: True}`. Het team met het meeste aantal goede antwoorden in een ronde krijgt 4 round points bij het totaal, de nummer twee krijgt 2 round points en het derde team krijgt 1 round points. Alle andere teams krijgen 0.1 round points. Al deze punten worden bijgehouden in de session van het scoreboard.
 
-6. De huidige vraag en categorie krijgt het scoreboard van de Quizmaster, ze zijn verstuurd via het volgende JSON websocket message `websocket.send({"question": String, category: 'String'})`. De informatie uit de websocket message is opgeslagen en word getoond op scherm. Als de volgende vraag binnenkomt word de inhoud van de session vervangen.
+6. De huidige vraag en categorie krijgt het scoreboard van de Quizmaster, ze zijn verstuurd via het volgende JSON websocket message `websocket.send({"question": String, category: 'String'})`. De informatie uit de websocket message is opgeslagen in een session en word getoond op scherm. Als de volgende vraag binnenkomt word de inhoud van de session vervangen.
 
 7. Als een team een antwoord heeft ingevuld in het input veld dan krijgt het scoreboard het volgende JSON websocket message binnen `websocket.send({teamName: String, answered: Boolean})`. Wanneer `answered: True` is dan word de teamnaam getoond en als het `answered: False` is niet.
 
