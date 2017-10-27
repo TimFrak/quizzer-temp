@@ -14,7 +14,7 @@ The Quizzer is a een web applicatie die gebruikt kan worden in cafe's, sportkant
 * De vragen van Quizzer moeten in het kort beantwoord worden. Het zijn geen meerkeuze vragen maar dat      betekend niet dat er lange zinnen nodig zijn
 * De Quizz Master bepaalt wanneer een Quizz Night over is.En als het dan zo ver is, selecteert de          applicatie de winnaars op basis van de resultaten
 
-## Mock-ups
+## Applicatiebeschrijving en mock-ups
 
 ### Team-app
 
@@ -23,7 +23,22 @@ The Quizzer is a een web applicatie die gebruikt kan worden in cafe's, sportkant
 
 1. Wanneer iemand wil meespelen met een quiz moet de persoon of groep mensen eerst een team naam en het wachtwoord invullen. Het wachtwoord van een quiz hoort de persoon of groep mensen te krijgen van de Quizmaster.
 
-2. Als de persoon of groep alle velden heeft ingevuld en drukt op de knop “Verder” dan word er via AJAX `request.post(‘api/teams’)` gestuurd naar de server. De server handelt het request af met de express route `app.post(‘api/teams’)`, in deze route wordt er gecheckt in mongoDB of het wachtwoord overeenkomt met een quiz en tegelijk wordt er gekeken of er al een team bestaat met de zelfde naam.Als een van de twee al voorkomt stuurt de route het volgende JSON response terug `{ message: “Team naam bestaat al of er bestaat geen quiz met dat wachtwoord”}`.Zo niet dan wordt een nieuwe team document aangemaakt in mongoDB. 
+2. Als de persoon of groep alle velden heeft ingevuld en drukt op de knop “Verder” dan word er via AJAX `request.post(‘api/teams’)` gestuurd naar de server. De server handelt het request af met de express route `app.post(‘api/teams’)`, in deze route wordt er gecheckt in mongoDB of het wachtwoord overeenkomt met een quiz en tegelijk wordt er gekeken of er al een team bestaat met de zelfde naam.Als een van de twee al voorkomt stuurt de route het volgende JSON response terug `{ message: “Team naam bestaat al of er bestaat geen quiz met dat wachtwoord”}`.Zo niet dan wordt een nieuwe team document aangemaakt in mongoDB.
+
+```
+## Express route
+
+app.post('api/teams', function (req, res) {
+  // Checkt in mongoDB of het wachtwoord overeenkomst met een quiz
+
+  if(// Als een van de twee al voorkomt) {
+    res.send({ message: “Team naam bestaat al of er bestaat geen quiz met dat wachtwoord”});
+  }
+  else {
+    // Team wordt toegevoegd aan het "Team" schema van MongoDB ( zie Mongoose data schema's )
+  }
+})
+```
 
 
 * Vraag invullen, antwoord geven
