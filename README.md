@@ -89,6 +89,20 @@ JSON formaat,dit bericht ziet er dan uit zo uit `websocket.send({teamName: Strin
 
 ![Mockup scoreboard 1](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/Scoreboard%20part%201.PNG)
 
+1. Om erachter te komen hoeveel rondes er zijn gespeeld wordt er in de session van het scoreboard bewaard hoeveel rondes er al zijn gespeeld. Als de Quizmaster de keuze maakt om nog een ronde te spelen krijgt het scoreboard een JSON websocket message binnen, dit bericht ziet er zo uit `{nexRound: Boolean}`. Als het `True` is, wordt er een 1 opgeteld in de session en bij `false` niet.
+
+2. Dit veld houdt bij hoeveel vragen er al in een ronde zijn beantwoord, de hoeveelheid gestelde vragen wordt in de session van het scoreboard bewaard. Bij iedere nieuwe vraag stuurt de Quizmaster een JSON websocket message, als deze binnen komt wordt erin de session 1 opgeteld. Zo krijgt het scoreboard een actueel beeld van hoeveel vragen er al zijn beantwoord.
+
+3. Om de team namen te kunnen tonen heeft de Quizmaster een JSON websocket bericht gestuurd naar het scoreboard in het volgende formaat `websocket.send({teamNames: [String]})`. Het scoreboard haalt alle team namen uit dit bericht en slaat ze op in de session van het scoreboard. Hierna worden ze getoond op het scherm.
+
+4. Na iedere vraag heeft de Quizmaster het volgende JSON websocket message gestuurd naar het scoreboard `websocket.send({teamName: String, correct: Boolean})`. Als er in het bericht `correct: True` staat wordt het nummer van "Correcte antwoorden" van een team verhoogt met 1. Dit wordt bewaard in de session van het scoreboard en na iedere ronde wordt het gereset.
+
+5. Netzo als bij stap 1 word het aantal punten van een team berekend als het scoreboard het volgende JSON websocket message binnen krijgt `{nexRound: True}`. Het team met het meeste aantal goede antwoorden in een ronde krijgt 4 round points bij het totaal, de nummer twee krijgt 2 round points en het derde team krijgt 1 round points. Alle andere teams krijgen 0.1 round points. Al deze punten worden bijgehouden in de session van het scoreboard.
+
+6. 
+
+7. 
+
 * Zodra een antwoord is goedgekeurd of afgewezen, worden alle vragen getoond van de teams en wanneer goedgekeurd of afgewezen word de score bijgewerkt.
 
 ![Mockup scoreboard 2](https://raw.githubusercontent.com/TimFrak/quizzer-temp/master/quizz_master_app/Scoreboard%20part%202.PNG)
